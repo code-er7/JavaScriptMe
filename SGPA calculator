@@ -1,0 +1,59 @@
+// here we are going with an  assumption that you have A grade in both summer traning and GP 
+
+function marksToGrade(num) {
+    if (num >= 95) return "A+";
+    if (num >= 85) return "A";
+    if (num >= 75) return "B+";
+    if (num >= 65) return "B";
+    if (num >= 55) return "C+";
+    if (num >= 45) return "C";
+    if (num >= 35) return "D";
+    else return "null" 
+}
+// <--Author : Chetan Rao -->
+function getTotal(num) {
+    var External = "ContentPlaceHolder1_wucResult1_dlResult_Repeater1_0_lblMarksExternal_" + num;
+    var Internal = "ContentPlaceHolder1_wucResult1_dlResult_Repeater1_0_lblMarksInternal_" + num;
+    var externalMark = parseFloat(document.getElementById(External).innerHTML);
+    var internalMark = parseFloat(document.getElementById(Internal).innerHTML);
+    var totalMark = externalMark + internalMark;
+    return totalMark;
+}
+function gradePoints(grade , credit)
+{
+    if(grade == "A+")return 10*credit;
+    if(grade == "A")return 9*credit;
+    if(grade == "B+")return 8*credit;
+    if(grade == "B")return 7*credit;
+    if(grade == "C+")return 6*credit;
+    if(grade == "C")return 5*credit;
+    if(grade == "D")return 4*credit;
+    if(grade == "null")return 0*credit;
+}
+var allMarks = [];
+for (let i = 0; i < 7; i++) {
+    if (i == 3 || i == 5) continue;
+    allMarks.push(getTotal(i));
+}
+var grade = [];
+for (let i = 0; i <5; i++) {
+    grade.push(marksToGrade(allMarks[i]));
+}
+var points = [];
+var k = 5;
+var flag = false; 
+var sum = 0 ;
+for (let i = 0; i <5; i++) {
+    points.push(gradePoints(grade[i] , k));
+    sum+=points[i];
+    if(k == 3 && flag == false)
+    {
+        flag = true ;
+        k++;
+    }
+    k--;
+}
+sum+=9+18;
+sum/=20;
+alert("Your 3rd semester SGPA is " + sum );
+
