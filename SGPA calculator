@@ -1,59 +1,44 @@
-// here we are going with an  assumption that you have A grade in both summer traning and GP 
 
-function marksToGrade(num) {
-    if (num >= 95) return "A+";
-    if (num >= 85) return "A";
-    if (num >= 75) return "B+";
-    if (num >= 65) return "B";
-    if (num >= 55) return "C+";
-    if (num >= 45) return "C";
-    if (num >= 35) return "D";
-    else return "null" 
-}
 // <--Author : Chetan Rao -->
 function getTotal(num) {
-    var External = "ContentPlaceHolder1_wucResult1_dlResult_Repeater1_0_lblMarksExternal_" + num;
-    var Internal = "ContentPlaceHolder1_wucResult1_dlResult_Repeater1_0_lblMarksInternal_" + num;
-    var externalMark = parseFloat(document.getElementById(External).innerHTML);
-    var internalMark = parseFloat(document.getElementById(Internal).innerHTML);
-    var totalMark = externalMark + internalMark;
-    return totalMark;
+
+    var grade = "ContentPlaceHolder1_wucResult1_dlResult_Repeater1_0_lblGrade_" + num;
+    var finalGrade = document.getElementById(grade).innerHTML;
+    return finalGrade;
 }
-function gradePoints(grade , credit)
-{
-    if(grade == "A+")return 10*credit;
-    if(grade == "A")return 9*credit;
-    if(grade == "B+")return 8*credit;
-    if(grade == "B")return 7*credit;
-    if(grade == "C+")return 6*credit;
-    if(grade == "C")return 5*credit;
-    if(grade == "D")return 4*credit;
-    if(grade == "null")return 0*credit;
+function gradePoints(grade, credit) {
+    if (grade == "A+") return 10 * credit;
+    if (grade == "A") return 9 * credit;
+    if (grade == "B+") return 8 * credit;
+    if (grade == "B") return 7 * credit;
+    if (grade == "C+") return 6 * credit;
+    if (grade == "C") return 5 * credit;
+    if (grade == "D") return 4 * credit;
+    if (grade == "null") return 0 * credit;
 }
 var allMarks = [];
-for (let i = 0; i < 7; i++) {
-    if (i == 3 || i == 5) continue;
+for (let i = 0; i < 9; i++) {
+    if (i == 7) continue;
     allMarks.push(getTotal(i));
 }
-var grade = [];
-for (let i = 0; i <5; i++) {
-    grade.push(marksToGrade(allMarks[i]));
-}
 var points = [];
-var k = 5;
-var flag = false; 
-var sum = 0 ;
-for (let i = 0; i <5; i++) {
-    points.push(gradePoints(grade[i] , k));
-    sum+=points[i];
-    if(k == 3 && flag == false)
-    {
-        flag = true ;
-        k++;
-    }
-    k--;
+var k = 0;
+var flag = false;
+var sum = 0;
+for (let i = 0; i < 8; i++) {
+    if (i == 0) k = 5;
+    if (i == 1) k = 4;
+    if (i == 2) k = 3;
+    if (i == 3) k = 2;
+    if (i == 4) k = 3;
+    if (i == 5) k = 1;
+    if (i == 6) k = 2;
+    if (i == 7) k = 1;
+    points.push(gradePoints(allMarks[i], k));
+    sum += points[i];
+
 }
-sum+=9+18;
-sum/=20;
-alert("Your 3rd semester SGPA is " + sum );
+sum /= 21;
+alert("Your 3rd semester SGPA is " + sum);
+
 
